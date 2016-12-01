@@ -12,13 +12,13 @@ public class Main {
     public static void main(String[] args) {
         try {
             Date d = new Date();
-            String destination = "C:/Users/ckha/Desktop/httracktoarc/httracktest2";
+            String destination = "C:/Users/ckha/Desktop/httracktoarc/httrackBigTest";
             if(!new File(destination).exists()){
                 File f = new File(destination);
                 f.mkdir();
             }
             HTTrack2ArcConverter htt = new HTTrack2ArcConverter(
-                    "C:\\Users\\ckha\\Desktop\\httracktoarc\\roende.dk", destination, d);
+                    "C:\\Users\\ckha\\Desktop\\httracktoarc\\ebeltoft.dk", destination, d);
             htt.run();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

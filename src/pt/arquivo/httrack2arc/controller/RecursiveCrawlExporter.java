@@ -204,9 +204,6 @@ public class RecursiveCrawlExporter implements Exporter {
                     String cacheEntry = filename.replaceFirst("/", "//");
 //                    System.out.println("size: " + metadata.size());
                     for (LogEntry logEntry : metadata) {
-//                        System.out.println("logentry: " + logEntry.getUrl());
-//                        System.out.println("cacheentry: " + cacheEntry);
-//                        System.out.println("true?: " + cacheEntry.equals(logEntry.getUrl()));
 
 
                         if (cacheEntry.equals(logEntry.getUrl())) {
@@ -243,10 +240,20 @@ public class RecursiveCrawlExporter implements Exporter {
                                 try {
                                     String affix = logEntry.getUrl().substring(logEntry.getUrl().lastIndexOf("."));
 
-                                    if(affix.equals(".gif") || affix.equals(".jpg") || affix.equals(".pdf")){
+//                                    if(affix.equals(".gif") || affix.equals(".jpg") || affix.equals(".pdf")){
+//                                        String s = child.getAbsolutePath();
+//                                        s = s.substring(0,s.indexOf("hts-cache")) + s.substring(s.indexOf("hts-cache")+24);
+//                                        child = new File(s);
+//                                    }
+
+                                    //Checks current file (child) is empty, if it is it tries to find it outside of the zip
+                                    //This is because jpg, gif, pdf and others will not be saved with content in the httrack zip file, and only be there by name to keep the structure
+                                    if(child.length() == 0){
                                         String s = child.getAbsolutePath();
                                         s = s.substring(0,s.indexOf("hts-cache")) + s.substring(s.indexOf("hts-cache")+24);
-                                        child = new File(s);
+                                        if(new File(s).exists() && new File(s).length() > 0) {
+                                            child = new File(s);
+                                        }
                                     }
 
                                     in = new FileInputStream(child);
